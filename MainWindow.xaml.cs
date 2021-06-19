@@ -24,10 +24,9 @@ namespace Flyproj
         // Определение скорости, градусов, массы, координат, высоты, ширины и коэффициента масштабирования для канваса
         public double v, d, m, x, y, w, h, coeffw, coeffh;
 
-        private double vx;
-        private double vy;
+        private double vx, vy;
 
-        private double maxH, maxV;
+        private double maxH, maxW;
         public double Resx(double t)
         { // Вычисление проекции силы сопротивления на Ох
             return t * t * Math.Cos(t);
@@ -56,9 +55,10 @@ namespace Flyproj
             h = canvas.ActualHeight / 2;
 
             maxH = v * v * Math.Sin(Angle(d)) * Math.Sin(Angle(d)) / (2 * 9.81);
-            maxV = v * v * Math.Sin(Angle(2 * d)) / 9.81;
-            coeffw = w / maxV;
+            maxW = v * v * Math.Sin(Angle(2 * d)) / 9.81;
+
             coeffh = h / maxH;
+            coeffw = w / maxW;
         }
 
         public void Start()
