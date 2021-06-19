@@ -24,6 +24,10 @@ namespace Flyproj
         // Определение скорости, градусов, массы, координат, высоты, ширины и коэффициента масштабирования для канваса
         public double v, d, m, x, y, w, h, coeffw, coeffh;
 
+        private double vx;
+        private double vy;
+
+        private double maxH, maxV;
         public double Resx(double t)
         { // Вычисление проекции силы сопротивления на Ох
             return t * t * Math.Cos(t);
@@ -48,11 +52,13 @@ namespace Flyproj
 
         public void Canvass()
         {
-            w = canvas.ActualWidth / 3;
-            h = canvas.ActualHeight ;
+            w = canvas.ActualWidth / 2;
+            h = canvas.ActualHeight / 2;
 
-            coeffw = w;
-            coeffh = h;
+            maxH = v * v * Math.Sin(Angle(d)) * Math.Sin(Angle(d)) / (2 * 9.81);
+            maxV = v * v * Math.Sin(Angle(2 * d)) / 9.81;
+            coeffw = w / maxV;
+            coeffh = h / maxH;
         }
 
         public void Start()
@@ -60,12 +66,12 @@ namespace Flyproj
             x = y = t = 0;
             poliline.Points.Clear();
             Canvass();
-            double vx = v * Math.Cos(Angle(d));
-            double vy = v * Math.Sin(Angle(d));
+            vx = v * Math.Cos(Angle(d));
+            vy = v * Math.Sin(Angle(d));
             timer.Start();
         }
 
-        public void Output() 
+        public void Output()
         {
             v = Convert.ToDouble(speed.Text);
             d = Convert.ToDouble(angle.Text);
@@ -86,8 +92,8 @@ namespace Flyproj
         public void OnTimer(object sender, EventArgs e)
         {
             t += 0.01;
-            double vx = v * Math.Cos(Angle(d));
-            double vy = v * Math.Sin(Angle(d));
+            //double vx = v * Math.Cos(Angle(d));
+            //double vy = v * Math.Sin(Angle(d));
             /*
             x = x + t * vx;
             y = y + t * vy;
@@ -95,21 +101,18 @@ namespace Flyproj
             vx = vx - t * (Resx(t) * vx / m);
             vy = vy - t * (9.8 + Resy(t) * vy / m);
             */
-            do
-            {
-                x = x + t * vx * (1 - (t * Resx(t) / m));
-                y = y + t * (vy - t * (9.8 - vy * Resy(t) / m));
-                if (y < 0) y = 0;
+            x = x + t * vx * (1 - (t * Resx(t) / m));
+            y = y + t * (vy - t * (9.8 - vy * Resy(t) / m));
+            if (y < 0) y = 0;
 
-                vx = vx * (1 - t * Resx(t) / m);
-                vy = vy - t * (9.8 - Resy(t) * vy / m);
+            vx = vx * (1 - t * Resx(t) / m);
+            vy = vy - t * (9.8 - Resy(t) * vy / m);
 
-                poliline.Points.Add(new Point(coeffw * x, h - coeffh * y));
-                Canvas.SetLeft(ellipse, poliline.Points.Last().X - ellipse.Width / 2.0);
-                Canvas.SetTop(ellipse, poliline.Points.Last().Y - ellipse.Height / 2.0);
-            }
-            while (y > 0);
-            timer.Stop();
+            poliline.Points.Add(new Point(coeffw * x, h - coeffh * y));
+            Canvas.SetLeft(ellipse, poliline.Points.Last().X - ellipse.Width / 2.0);
+            Canvas.SetTop(ellipse, poliline.Points.Last().Y - ellipse.Height / 2.0);
+
+            if (y <= 0) timer.Stop();
         }
     }
 }
