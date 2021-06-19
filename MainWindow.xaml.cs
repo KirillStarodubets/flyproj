@@ -48,8 +48,8 @@ namespace Flyproj
 
         public void Canvass()
         {
-            w = canvas.ActualWidth / 2;
-            h = canvas.ActualHeight / 2;
+            w = canvas.ActualWidth / 3;
+            h = canvas.ActualHeight ;
 
             coeffw = w;
             coeffh = h;
@@ -95,18 +95,21 @@ namespace Flyproj
             vx = vx - t * (Resx(t) * vx / m);
             vy = vy - t * (9.8 + Resy(t) * vy / m);
             */
-            x = x + t * vx * (1 - (t * Resx(t) / m));
-            y = y + t * (vy - t * (9.8 - vy * Resy(t) / m));
-            if (y < 0) y = 0;
+            do
+            {
+                x = x + t * vx * (1 - (t * Resx(t) / m));
+                y = y + t * (vy - t * (9.8 - vy * Resy(t) / m));
+                if (y < 0) y = 0;
 
-            vx = vx * (1 - t * Resx(t) / m);
-            vy = vy - t * (9.8 - Resy(t) * vy / m);
+                vx = vx * (1 - t * Resx(t) / m);
+                vy = vy - t * (9.8 - Resy(t) * vy / m);
 
-            poliline.Points.Add(new Point(coeffw * x, h - coeffh * y));
-            Canvas.SetLeft(ellipse, poliline.Points.Last().X - ellipse.Width / 2.0);
-            Canvas.SetTop(ellipse, poliline.Points.Last().Y - ellipse.Height / 2.0);
-
-            if (y <= 0) timer.Stop();
+                poliline.Points.Add(new Point(coeffw * x, h - coeffh * y));
+                Canvas.SetLeft(ellipse, poliline.Points.Last().X - ellipse.Width / 2.0);
+                Canvas.SetTop(ellipse, poliline.Points.Last().Y - ellipse.Height / 2.0);
+            }
+            while (y > 0);
+            timer.Stop();
         }
     }
 }

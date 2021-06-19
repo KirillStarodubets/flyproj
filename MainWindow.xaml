@@ -6,20 +6,20 @@
         xmlns:local="clr-namespace:Flyproj"
         mc:Ignorable="d"
         Title="Flight" Height="680" Width="1418.2" ResizeMode="NoResize">
-    <Grid>
+    <Grid RenderTransformOrigin="0.039,0.672">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="98*"/>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="333*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Margin="23,446,95.8,0" TextWrapping="Wrap" Text="Ввод данных:" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Height="27"/>
-        <Button Content="Start" Margin="34,0,12.8,11.4" FontWeight="Bold" FontSize="18" Height="30" VerticalAlignment="Bottom" Click="Button_Click"/>
-        <TextBox x:Name="speed" Height="16" Text="2" Margin="91,498,18.8,0" TextWrapping="Wrap"  VerticalAlignment="Top" RenderTransformOrigin="0.275,0.072" TextChanged="speed_TextChanged"/>
-        <TextBox x:Name="angle" Height="16" Text="30" Margin="91,518,18.8,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
-        <TextBox x:Name="mass" Height="16" Text="1" Margin="91,538,18.8,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
-        <TextBlock Margin="1,498,202.8,0" TextWrapping="Wrap" Text="Speed:" VerticalAlignment="Top" Height="17" RenderTransformOrigin="0.502,0.424"/>
-        <TextBlock Margin="0,518,203.8,0" TextWrapping="Wrap" Text="Аngle:" VerticalAlignment="Top" Height="17"/>
-        <TextBlock Margin="0,538,203.8,0" TextWrapping="Wrap" Text="Mass:" VerticalAlignment="Top" Height="17"/>
+        <TextBlock Margin="33,466,85.8,0" TextWrapping="Wrap" Text="Ввод данных:" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Height="27"/>
+        <Button Content="Start" Margin="10,0,36.8,25.4" FontWeight="Bold" FontSize="18" Height="30" VerticalAlignment="Bottom" Click="Button_Click"/>
+        <TextBox x:Name="speed" Height="16" Text="100" Margin="101,518,8.8,0" TextWrapping="Wrap"  VerticalAlignment="Top" RenderTransformOrigin="0.275,0.072" TextChanged="speed_TextChanged"/>
+        <TextBox x:Name="angle" Height="16" Text="30" Margin="101,538,8.8,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
+        <TextBox x:Name="mass" Height="16" Text="1000" Margin="101,558,8.8,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
+        <TextBlock Margin="11,518,224.8,0" TextWrapping="Wrap" Text="Speed:" VerticalAlignment="Top" Height="17" RenderTransformOrigin="0.502,0.424"/>
+        <TextBlock Margin="10,538,224.8,0" TextWrapping="Wrap" Text="Аngle:" VerticalAlignment="Top" Height="17"/>
+        <TextBlock Margin="10,558,224.8,0" TextWrapping="Wrap" Text="Mass:" VerticalAlignment="Top" Height="17"/>
         <Canvas x:Name="canvas" Margin="0.2,0,0,-9.6" RenderTransformOrigin="0.5,0.5" Grid.Column="2">
             <Polyline x:Name="poliline" Stroke="Red" StrokeThickness="4" />
             <Ellipse x:Name="ellipse" Fill="White" Width="20" Height="20"></Ellipse>
